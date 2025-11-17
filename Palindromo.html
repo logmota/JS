@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Hello, World!</title>
+</head>
+<body>
+  <!-- 
+  (isso porque eu ainda não fiz o CSS...)
+ 
+  
+  
+ 
+  PROJETO PALINDROMO:
+  O QUE É? 
+  Palindromo é quando uma palavra tem o mesmo significado quando 
+  você a lê de trás para frente.
+  ex: Ovo, uva, Tenet e assim por diante.
+  
+  a lógica do código é a seguinte 
+  
+  1 - separar as letras com split;
+  1.1 -colocar em um array;
+  
+  2- fazer a verificação: 
+  2.1- Ver se a primeira é igual a ultima, se a penultima é igual 
+  a segunda e assim por diante até acabar as letras da palavra. 
+  (verificação em looping/ laço de repetição)
+  2.3- fórmula usada: (n+i = TL-i+1)
+  2.4- se for tudo verdadeiro, mostrar na tela
+  (é um palindromo)
+  
+  3-Adicionais:
+  3.1-contar total de caracteres
+  3.2-contar o total de letras
+  3.3-contar vogais
+  3.4-contar consoantes
+  3.5-contar total de palavras
+  
+  4-CSS (deixar bonitão)
+ 
+  Por enquanto é isso!
+  
+  BORA CODARRRR
+  -->
+  <h1>
+   Verificador de Palindromo
+  </h1>
+  
+  <textarea id="textoUsuario" placeholder="Digite aqui a palavra ou frase para saber se é um palindromo!" style="width:350px; height:100px;"></textarea> 
+  <br>
+  <br>
+  <button onclick="rodando()">Verificar</button>
+  <br>
+  <p id="resultadoPalindromo"></p>
+  <br>
+  <p id="informacao"></p>
+  <table>
+    <tr>
+      <td><p id="caracteres"></p></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><p id="palavras"></p></td>
+    </tr>
+    <tr>
+       <td><p id="letras"></p></td>
+      <td><p></p></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+       <td><p id="vogais"></p></td>
+    </tr>
+    <tr>
+       <td><p id="consoantes"></p></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+       <td><p id="espacos"></p></td>
+    </tr>
+    <tr>
+       <td><p id="numeros"></p></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+       <td><p id="outros"></p></td>
+    </tr>
+    
+  </table>
+  <p id="botaum"></p>
+  
+  <script>
+  //1. Separar com Split
+  var coisaEscrita = "";
+  var quantPalavras = [];
+  var quantLetras = [];
+  var quantLetrasNormal = [];
+  
+  
+  function rodando(){
+    separar();
+    
+   const retornoResultado = Palindromo();
+   const elementoResults = document.getElementById("resultadoPalindromo");
+    if(elementoResults){
+      elementoResults.textContent = retornoResultado;
+    }
+    else{console.error("ID não encontrado")} 
+    
+    const resultadosContagem = contagemCaracteres();
+    document.getElementById("informacao").textContent = "Mais informações sobre o que foi digitado:";
+    document.getElementById("caracteres").textContent = "Caracteres: " + resultadosContagem.caracteres;
+      document.getElementById("numeros").textContent = "Números: " + resultadosContagem.numeros;
+      document.getElementById("vogais").textContent = "Vogais: " + resultadosContagem.vogais;
+      document.getElementById("consoantes").textContent = "Consoantes: " + resultadosContagem.consoantes;
+      document.getElementById("outros").textContent = "Outros: " + resultadosContagem.outros;
+      document.getElementById("espacos").textContent = "Espaço: " + resultadosContagem.espacos;
+      document.getElementById("palavras").textContent = "Palavras: " + resultadosContagem.palavras;
+      document.getElementById("letras").textContent = "Letras: " + resultadosContagem.letrasSemEspaco;
+    
+     document.getElementById("botaum").innerHTML = '<button onclick="limpar()">Limpar Informações</button>';
+    
+  }
+  
+  function limpar(){
+    document.getElementById("informacao").textContent = "Mais informações sobre o que foi digitado:";
+    document.getElementById("caracteres").textContent = " ";
+      document.getElementById("numeros").textContent = " ";
+      document.getElementById("vogais").textContent = "";
+      document.getElementById("consoantes").textContent = "";
+      document.getElementById("outros").textContent = "";
+      document.getElementById("espacos").textContent = "";
+      document.getElementById("palavras").textContent = "";
+      document.getElementById("letras").textContent = "";
+    
+  }
+  
+  function separar(){
+    
+   
+    coisaEscrita = document.getElementById("textoUsuario").value;
+    quantPalavras = coisaEscrita.split(" ").filter(word => word.length > 0);
+    
+    
+  }
+  
+  
+  //2. Verificar se é um Palindromo 
+  function Palindromo(){
+    
+    var textNormaliz = coisaEscrita.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, "");
+
+    if (textNormaliz.length === 0){
+      return "Ops! Acho que não há um texto para eu analisar!"
+    };
+    
+    const comprimento = textNormaliz.length;
+   
+    for(let i=0; i < Math.floor(comprimento / 2); i++){
+      if(textNormaliz[i] !== textNormaliz[comprimento - 1 - i]){ 
+      
+       return "Nop,não é palindromo";
+      };       
+    };
+     return "É, definitivamente é um palindromo!";  
+  };    
+  
+  //3. Contar quantos caracteres tem //4. Contar quantas vogais tem //5. Contar quantas cossoantes tem//6. Contar quantas palavras tem //7. Contar quantas letras tem no total
+ 
+  function contagemCaracteres() {
+      let caracteres = 0; 
+      let numeros = 0;
+      let vogais = 0;
+      let consoantes = 0;
+      let outros = 0;
+      let espacos = 0;
+      let letras = 0;
+      
+    
+      const textoOriginal = coisaEscrita;
+      const textoMinusculo = textoOriginal.toLowerCase();
+
+     
+    
+    for (let i = 0; i < textoMinusculo.length; i++) {
+        const char = textoMinusculo[i];
+        caracteres++; 
+        
+        if (/\s/.test(char)) {
+          espacos++;
+        } else if (/[0-9]/.test(char)) {
+          numeros++;
+        } else {
+          
+          const charNormalizado = char.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+
+          if (/[a-z]/.test(charNormalizado)) {
+            letras++; 
+            if (/[aeiou]/.test(charNormalizado)) {
+              vogais++;
+            } else {
+              consoantes++;
+            }
+          } else {
+            
+            outros++;
+          }
+        }
+      }
+
+      return {
+        caracteres: caracteres,
+        numeros: numeros,
+        vogais: vogais,
+        consoantes: consoantes,
+        outros: outros,
+        espacos: espacos,
+        palavras: quantPalavras.length,
+        letras: letras 
+      };
+    }
+    
+    
+  
+  
+  
+  
+  
+  
+  </script>
+ 
+ 
+  
+  
+  
+  
+  
+</body>
+</html>
