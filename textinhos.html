@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Textinhos</title>
+
+  <style>
+ 
+  *{
+    margin: 15px;
+    border:0px;
+  }
+
+  body {
+      background-color: rgb(31,31,31);
+  }
+
+  .quadrado{
+    background-color: lightblue;
+    border-radius: 5px; 
+  }
+  #reta{
+    text-align: center;
+    background-color: lightblue;
+  }
+
+  #submit{
+    background-color:white;
+    padding:10px;
+  }
+  #limpar{
+    background-color:white;
+    padding:10px;
+  }
+
+  #titulo-principal, #subtitulo, #local {
+    background-color: lightblue; 
+    color: white; 
+    
+  }
+
+  #text{
+    background-color: white;
+    width: 200px; 
+    height:80px;
+    text-align:center;
+  }
+  </style>
+
+</head>
+<body>
+
+  <div id="quadrado">
+
+    <br><br><br><br>
+    <main id="reta">
+      <br><br><br>
+      <h1 id="titulo-principal">
+          Mini projetinho!
+      </h1>
+      <h3 id="subtitulo">Escreva o seu textinho!</h3>
+      <textarea id="text" placeholder="Digite o que você quiser aqui e nos envie!"></textarea>
+      <br>
+      <button id="submit" onclick = "enviado()">Enviar</button>
+      <button id="limpar" onclick = "clean()">Limpar</button>
+      <br><br></br><br></br>
+      <p id="local"></p>
+      <br><br><br><br>
+    </main>
+
+  </div>
+
+
+  <script>
+  function enviado(){
+      var textinho = document.getElementById("text").value;
+      const localizado = document.getElementById("local");
+      localizado.innerHTML = textinho;
+    };
+
+  function clean(){
+    document.getElementById("local").innerHTML = "";
+  }
+  </script>
+
+</html>
